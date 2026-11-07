@@ -29,7 +29,8 @@ const jetbrains = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? site.url;
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? site.url).replace(/\/$/, "");
+const ogImageUrl = `${siteUrl}/og.png`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
     "India",
   ],
   alternates: {
-    canonical: "/",
+    canonical: siteUrl,
   },
   openGraph: {
     type: "website",
@@ -68,7 +69,7 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: "/og.png",
+        url: ogImageUrl,
         width: 1200,
         height: 630,
         alt: "Shubhankar Chavan — Technology, Media, Journalism and Business. Portfolio 2026.",
@@ -79,7 +80,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Shubhankar Chavan — Technology, Media & Journalism",
     description: site.description,
-    images: ["/og.png"],
+    images: [ogImageUrl],
   },
   robots: {
     index: true,

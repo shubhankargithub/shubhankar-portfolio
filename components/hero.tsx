@@ -2,6 +2,8 @@ import Image from "next/image";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { heroStats, site } from "@/content/site";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export function Hero() {
   return (
     <section id="top" className="hero" aria-label="Introduction">
@@ -95,7 +97,7 @@ export function Hero() {
               >
                 <div className="portrait-frame">
                   <Image
-                    src="/assets/profile.jpg"
+                    src={`${basePath}/assets/profile.jpg`}
                     alt="Portrait of Shubhankar Chavan"
                     fill
                     priority

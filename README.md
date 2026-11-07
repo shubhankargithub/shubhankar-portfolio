@@ -87,6 +87,8 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.com
 
 Local development falls back to `https://shubhankarchavan.vercel.app` (defined in `content/site.ts`). See `.env.example`.
 
+For a GitHub Pages project site, also set `NEXT_PUBLIC_BASE_PATH` to the repository path, for example `/shubhankar-portfolio`. Leave it empty for root-domain or Vercel deployments.
+
 Included out of the box:
 
 - Per-page metadata, canonical URL, Open Graph and Twitter cards.
@@ -152,12 +154,12 @@ Typography: **Newsreader** (serif display), **Inter** (body) and **JetBrains Mon
 
 ## Deploy to GitHub Pages
 
-The live site is published at **[shubhankargithub.github.io](https://shubhankargithub.github.io/)**.
+The live site is published at **[shubhankargithub.github.io/shubhankar-portfolio](https://shubhankargithub.github.io/shubhankar-portfolio/)** from the [`shubhankar-portfolio`](https://github.com/shubhankargithub/shubhankar-portfolio) repository.
 
 Every push to `main` runs `.github/workflows/deploy-pages.yml`, which:
 
 1. Installs dependencies with `npm ci`.
-2. Builds a static export with `GITHUB_PAGES=true` and the Pages URL.
+2. Builds a static export with the project site URL and base path.
 3. Uploads the generated `out/` directory to GitHub Pages.
 
 To build the Pages version locally:
@@ -165,13 +167,14 @@ To build the Pages version locally:
 ```bash
 # PowerShell
 $env:GITHUB_PAGES="true"
-$env:NEXT_PUBLIC_SITE_URL="https://shubhankargithub.github.io"
+$env:NEXT_PUBLIC_SITE_URL="https://shubhankargithub.github.io/shubhankar-portfolio"
+$env:NEXT_PUBLIC_BASE_PATH="/shubhankar-portfolio"
 npm run build
 ```
 
-The static export is written to `out/`. Because GitHub Pages serves files only, `next/image` optimisation is disabled in this mode and a pre-rendered `public/og.png` is used for social previews.
+The static export is written to `out/`. Because this is a GitHub Pages project site, `NEXT_PUBLIC_BASE_PATH` must match the repository name. `next/image` optimisation is disabled in this mode and a pre-rendered `public/og.png` is used for social previews.
 
-To use a different repository name or custom domain, update `NEXT_PUBLIC_SITE_URL` in the workflow and in `content/site.ts`.
+To use a different repository name or a custom domain, update `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_BASE_PATH` in the workflow, then rebuild.
 
 ## Deploy to Vercel
 

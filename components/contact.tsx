@@ -4,6 +4,8 @@ import { SectionHeader } from "@/components/section-header";
 import { ContactForm } from "@/components/contact-form";
 import { CopyButton } from "@/components/copy-button";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 const contactLinks = [
   {
     label: "LinkedIn",
@@ -33,6 +35,8 @@ const contactLinks = [
 ];
 
 export function Contact() {
+  const cvUrl: string = site.cvUrl;
+
   return (
     <section
       id="contact"
@@ -118,9 +122,9 @@ export function Contact() {
               </div>
             </div>
 
-            {site.cvUrl ? (
+            {cvUrl ? (
               <a
-                href={site.cvUrl}
+                href={cvUrl.startsWith("/") ? `${basePath}${cvUrl}` : cvUrl}
                 download
                 className="text-link mt-5 text-[0.78rem]"
               >
